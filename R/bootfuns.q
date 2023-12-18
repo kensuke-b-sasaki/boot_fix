@@ -192,10 +192,14 @@ boot <- function(data, statistic, R, sim = "ordinary",
             } else parallel::parLapply(cl, seq_len(RR), fn)
         }
     } else lapply(seq_len(RR), fn)
+    res <- res[lengths(res) >= length(t0)]
+    RR <- length(res)
+    R <- length(res)
     t.star <- matrix(, RR, length(t0))
     for(r in seq_len(RR)) t.star[r, ] <- res[[r]]
 
     if (is.null(weights)) weights <- 1/tabulate(strata)[strata]
+    call$R <- as.double(length(res))
     boot0 <- boot.return(sim, t0, t.star, temp.str, R, data, statistic,
                          stype, call,
                          seed, L, m, pred.i, weights, ran.gen, mle)
