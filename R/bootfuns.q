@@ -194,6 +194,7 @@ boot <- function(data, statistic, R, sim = "ordinary",
     } else lapply(seq_len(RR), fn)
     res <- res[lengths(res) >= length(t0)]
     RR <- length(res)
+    print(paste0("[bootfuns.q] RR (length(res)) = ", RR))
     R <- length(res)
     t.star <- matrix(, RR, length(t0))
     for(r in seq_len(RR)) t.star[r, ] <- res[[r]]
